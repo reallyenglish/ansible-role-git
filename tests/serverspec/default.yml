@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - ansible-role-git
+  vars:
+    git_config: ""
