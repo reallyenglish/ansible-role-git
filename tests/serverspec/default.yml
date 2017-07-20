@@ -2,4 +2,5 @@
   roles:
     - ansible-role-git
   vars:
-    git_config: ""
+    git_additional_packages:
+      - "{% if ansible_os_family == 'FreeBSD' %}gitflow{% else %}git-flow{% endif %}"

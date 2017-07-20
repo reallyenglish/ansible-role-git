@@ -2,57 +2,25 @@ require "spec_helper"
 require "serverspec"
 
 package = "git"
-service = "git"
-config  = "/etc/git/git.conf"
-user    = "git"
-group   = "git"
-ports   = [PORTS]
-log_dir = "/var/log/git"
-db_dir  = "/var/lib/git"
+additional_packages = ["git-flow"]
 
 case os[:family]
 when "freebsd"
-  config = "/usr/local/etc/git.conf"
-  db_dir = "/var/db/git"
+  additional_packages = ["gitflow"]
 end
 
 describe package(package) do
   it { should be_installed }
 end
 
-describe file(config) do
-  it { should be_file }
-  its(:content) { should match Regexp.escape("git") }
+describe command("git --version") do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should match(/^git version/) }
+  its(:stderr) { should eq "" }
 end
 
-describe file(log_dir) do
-  it { should exist }
-  it { should be_mode 755 }
-  it { should be_owned_by user }
-  it { should be_grouped_into group }
-end
-
-describe file(db_dir) do
-  it { should exist }
-  it { should be_mode 755 }
-  it { should be_owned_by user }
-  it { should be_grouped_into group }
-end
-
-case os[:family]
-when "freebsd"
-  describe file("/etc/rc.conf.d/git") do
-    it { should be_file }
-  end
-end
-
-describe service(service) do
-  it { should be_running }
-  it { should be_enabled }
-end
-
-ports.each do |p|
-  describe port(p) do
-    it { should be_listening }
+additional_packages.each do |p|
+  describe package(p) do
+    it { should be_installed }
   end
 end
