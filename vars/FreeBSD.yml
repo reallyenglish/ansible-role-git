@@ -1,2 +1,1 @@
-__git_db_dir: /var/db/git
-__git_conf_dir: /usr/local/etc/git
+__git_package: git

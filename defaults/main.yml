@@ -1,8 +1,2 @@
-git_user: git
-git_group: git
-git_log_dir: /var/log/git
-git_db_dir: "{{ __git_db_dir }}"
-git_service: git
-git_conf_dir: "{{ __git_conf_dir }}"
-git_conf_file: "{{ __git_conf_dir }}/git.conf"
-git_flags: ""
+git_package: "{{ __git_package }}"
+git_additional_packages: []

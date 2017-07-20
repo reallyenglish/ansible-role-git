@@ -1,6 +1,6 @@
 # ansible-role-git
 
-A brief description of the role goes here.
+Install `git` and git-related packages. Nothing else.
 
 # Requirements
 
@@ -8,9 +8,16 @@ None
 
 # Role Variables
 
-| variable | description | default |
+| Variable | Description | Default |
 |----------|-------------|---------|
+| `git_package` | package name of `git` | `{{ __git_package }}` |
+| `git_additional_packages` | list of additional packages to install | `[]` |
 
+## FreeBSD
+
+| Variable | Default |
+|----------|---------|
+| `__git_package` | `git` |
 
 # Dependencies
 
@@ -19,6 +26,12 @@ None
 # Example Playbook
 
 ```yaml
+- hosts: localhost
+  roles:
+    - ansible-role-git
+  vars:
+    git_additional_packages:
+      - "{% if ansible_os_family == 'FreeBSD' %}gitflow{% else %}git-flow{% endif %}"
 ```
 
 # License
