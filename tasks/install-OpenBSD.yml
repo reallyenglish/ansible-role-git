@@ -1,0 +1,12 @@
+---
+
+- name: Install git
+  openbsd_pkg:
+    name: "{{ git_package }}"
+    state: present
+
+- name: Install git_additional_packages
+  openbsd_pkg:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ git_additional_packages }}"
