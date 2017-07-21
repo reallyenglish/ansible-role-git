@@ -1,0 +1,12 @@
+---
+
+- name: Install git
+  yum:
+    name: "{{ git_package }}"
+    state: present
+
+- name: Install git_additional_packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ git_additional_packages }}"

@@ -13,7 +13,25 @@ None
 | `git_package` | package name of `git` | `{{ __git_package }}` |
 | `git_additional_packages` | list of additional packages to install | `[]` |
 
+## Debian
+
+| Variable | Default |
+|----------|---------|
+| `__git_package` | `git` |
+
 ## FreeBSD
+
+| Variable | Default |
+|----------|---------|
+| `__git_package` | `git` |
+
+## OpenBSD
+
+| Variable | Default |
+|----------|---------|
+| `__git_package` | `git` |
+
+## RedHat
 
 | Variable | Default |
 |----------|---------|
@@ -31,7 +49,7 @@ None
     - ansible-role-git
   vars:
     git_additional_packages:
-      - "{% if ansible_os_family == 'FreeBSD' %}gitflow{% else %}git-flow{% endif %}"
+      - "{% if ansible_os_family == 'FreeBSD' %}gitflow{% elif ansible_os_family == 'OpenBSD' %}git-cvs{% elif ansible_os_family == 'RedHat' %}git-cvs{% else %}git-flow{% endif %}"
 ```
 
 # License

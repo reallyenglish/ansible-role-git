@@ -5,6 +5,10 @@ package = "git"
 additional_packages = ["git-flow"]
 
 case os[:family]
+when "redhat"
+  additional_packages = ["git-cvs"]
+when "openbsd"
+  additional_packages = ["git-cvs"]
 when "freebsd"
   additional_packages = ["gitflow"]
 end
